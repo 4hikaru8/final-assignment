@@ -14,28 +14,17 @@ import com.it_seisan.try_event.tryeve.entity.Event;
 import com.it_seisan.try_event.tryeve.service.EventService;
 
 @Controller
+@RequestMapping(value = "/")
 public class EventController {
 
     @Autowired
     EventService eventService;
 
-    @RequestMapping(value = "/add")
-    public String addData() {
-        List<Event> events = new ArrayList<>();
-        events.add(new Event("長岡京市", "ガラシャまつり", "12月23日"));
-        events.add(new Event("京都市", "祇園祭", "7月16日"));
-        eventService.save(events);
-        return "index";
-    }
-
     @GetMapping(value = "/")
     public String displayResult(Model model) {
         List<Event> events = new ArrayList<>();
-        String searchArea = "伏見区";
+        String searchArea = "伏見区";   // 検索したいエリアを代入する
         events = eventService.selectAll(searchArea);
-        // events.add(new Event("伏見区", "まつり", "10月5日"));
-        // events.add(new Event("左京区", "朝市", "1月5日"));
-        // events.add(new Event("長岡京市", "ガラシャまつり", "12月23日"));
         model.addAttribute("events", events);
         return "index"; 
     }
