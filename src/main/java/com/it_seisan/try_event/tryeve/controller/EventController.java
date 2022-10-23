@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 // import com.it_seisan.try_event.tryeve.dto.EventSearchRequest;
 import com.it_seisan.try_event.tryeve.entity.Event;
@@ -19,11 +19,14 @@ public class EventController {
     @Autowired
     EventService eventService;
 
-    // @GetMapping(value = "/")
-    // public String displaySearch(Model model) {
-    //     model.addAttribute("eventSearchRequest", new EventSearchRequest());
-    //     return "/";
-    // }
+    @RequestMapping(value = "/add")
+    public String addData() {
+        List<Event> events = new ArrayList<>();
+        events.add(new Event("長岡京市", "ガラシャまつり", "12月23日"));
+        events.add(new Event("京都市", "祇園祭", "7月16日"));
+        eventService.save(events);
+        return "index";
+    }
 
     @GetMapping(value = "/")
     public String displayResult(Model model) {

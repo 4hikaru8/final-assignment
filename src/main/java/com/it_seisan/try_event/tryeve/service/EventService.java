@@ -17,4 +17,8 @@ public class EventService {
     public List<Event> selectAll(String searchArea) {
         return eventMapper.selectAll(searchArea);
     }
+
+    public void save(List<Event> events) {
+        eventMapper.save(events);
+    }
 }
