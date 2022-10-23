@@ -7,4 +7,13 @@
     <select id="selectAll" resultType="com.it_seisan.try_event.tryeve.entity.Event">
         SELECT * FROM event_data WHERE event_area=#{searchArea};
     </select>
+    <!-- 一括登録 -->
+    <insert id="save">
+        INSERT INTO event_data
+            (event_area, event_name, event_date)
+        VALUES
+        <foreach collection="eventList" item="event" separator=",">
+            (#{event.event_area}, #{event.event_name}, #{event.event_date})
+        </foreach>
+    </insert>
 </mapper>
