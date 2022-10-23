@@ -21,8 +21,8 @@ public class PeriodicExecution {
     @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
     public void output1() {
         List<Event> events = new ArrayList<>();
-        events.add(new Event("亀岡市", "くりまつり", "9月1日"));
-        events.add(new Event("中京区", "古本市", "11月30日"));
+        events.add(new Event("城陽市", "五里五里まつり", "6月12日"));
+        events.add(new Event("下京区", "下賀茂まつり", "12月11日"));
         eventService.save(events);
         // System.out.println("hello");
     }
