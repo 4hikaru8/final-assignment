@@ -28,7 +28,8 @@ public class EventController {
     @GetMapping(value = "/")
     public String displayResult(Model model) {
         List<Event> events = new ArrayList<>();
-        events = eventService.selectAll();
+        String searchArea = "伏見区";
+        events = eventService.selectAll(searchArea);
         // events.add(new Event("伏見区", "まつり", "10月5日"));
         // events.add(new Event("左京区", "朝市", "1月5日"));
         // events.add(new Event("長岡京市", "ガラシャまつり", "12月23日"));

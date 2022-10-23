@@ -9,5 +9,5 @@ import com.it_seisan.try_event.tryeve.entity.Event;
 @Mapper
 public interface EventMapper {
 
-    public List<Event> selectAll();
+    public List<Event> selectAll(String seachArea);
 }

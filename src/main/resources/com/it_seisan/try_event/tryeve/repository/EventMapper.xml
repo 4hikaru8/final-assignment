@@ -3,7 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.it_seisan.try_event.tryeve.repository.EventMapper">
+    <!-- 複数の引数を設定した場合の取り出し方法は、変数名をparam + 番号(引数の順番)にして指定する。 -->
     <select id="selectAll" resultType="com.it_seisan.try_event.tryeve.entity.Event">
-        SELECT * FROM event_data WHERE event_area="宇治市";
+        SELECT * FROM event_data WHERE event_area=#{searchArea};
     </select>
 </mapper>

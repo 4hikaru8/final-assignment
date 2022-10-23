@@ -14,7 +14,7 @@ public class EventService {
     @Autowired
     private EventMapper eventMapper;
 
-    public List<Event> selectAll() {
-        return eventMapper.selectAll();
+    public List<Event> selectAll(String searchArea) {
+        return eventMapper.selectAll(searchArea);
     }
 }
