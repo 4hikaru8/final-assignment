@@ -2,13 +2,46 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>ユーザー情報検索</title>
-<link href="/css/list.css" rel="stylesheet"></link>
-<meta charset="utf-8" />
+    <title>ユーザー情報検索</title>
+    <link href="/css/index.css" rel="stylesheet"></link>
+    <meta charset="utf-8" />
 </head>
 <body>
-    <h1>ユーザー情報検索</h1>
-    <!-- <form th:action="@{/user/id_search}" th:object="${userSearchRequest}"
+    <section>
+        <h1 ><span id="title">Try</span>Event</h1>
+        <form action="/search" method="post">
+          <select id="area" name="selectedArea">
+            <!-- <div className="DropMenu" name="selectedArea"></div> -->
+            <option disabled>Selected Area ?</option>
+            <option value="京都市北区">京都市北区</option>
+            <option value="京都市左京区">京都市左京区</option>
+            <option value="京都市右京区">京都市右京区</option>
+            <option value="京都市上京区">京都市上京区</option>
+            <option value="京都市中京区">京都市中京区</option>
+            <option value="京都市下京区">京都市下京区</option>
+            <option value="京都市南区">京都市南区</option>
+            <option value="京都市伏見区">京都市伏見区</option>
+            <option value="京都市西京区">京都市西京区</option>
+            <option value="京都市東山区">京都市東山区</option>
+            <option value="京都市山科区">京都市山科区</option>
+            <option value="京都市南区">京都市南区</option>
+            <option value="宇治市">宇治市</option>
+            <option value="長岡京市">長岡京市</option>
+            <option value="八幡市">八幡市</option>
+          </select>
+          <div class="wrap">
+              <button class="btn-submit" >
+                  <span class="btn-text">検索</span>
+                  <span class="btn-icon">
+                      <i class="fa fa-check fa-2x"></i>
+                  </span>
+              </button>
+              <div class="loader" id="loader"></div>
+          </div>
+        </form>
+  
+      </section>
+      <!-- <form th:action="@{/user/id_search}" th:object="${userSearchRequest}"
         th:method="post">
         <div>
             ID：<input type="text" th:field="*{area}" size="40" />
@@ -35,6 +68,6 @@
             </tr>
         </table>
     </div> -->
-    <li th:each="event:${events}" th:text="${event.event_area} + ${event.event_name} + ${event.event_date}"></li>
+    <li class="events_list" th:each="event:${events}" th:text="${event.event_area} + ${event.event_name} + ${event.event_date}"></li>
 </body>
 </html>
