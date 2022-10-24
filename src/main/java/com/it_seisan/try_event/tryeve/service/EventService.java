@@ -14,11 +14,19 @@ public class EventService {
     @Autowired
     private EventMapper eventMapper;
 
-    public List<Event> selectAll(String searchArea) {
-        return eventMapper.selectAll(searchArea);
+    public List<Event> selectAll() {
+        return eventMapper.selectAll();
+    }
+
+    public List<Event> selectEvent(String searchArea) {
+        return eventMapper.selectEvent(searchArea);
     }
 
     public void save(List<Event> events) {
         eventMapper.save(events);
+    }
+
+    public void deleteData() {
+        eventMapper.deleteData();
     }
 }

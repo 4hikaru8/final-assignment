@@ -20,10 +20,14 @@ public class PeriodicExecution {
 
     @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
     public void output1() {
-        List<Event> events = new ArrayList<>();
+        List<Event> events = new ArrayList<>(); // リスト型のオブジェクトを用意
+
+        // サンプルデータ
         events.add(new Event("城陽市", "五里五里まつり", "6月12日"));
         events.add(new Event("下京区", "下賀茂まつり", "12月11日"));
-        eventService.save(events);
-        // System.out.println("hello");
+
+
+        eventService.deleteData();  // 登録されているイベントデータを削除する
+        eventService.save(events);  // 取得したデータをMySQLに保存する
     }
 }

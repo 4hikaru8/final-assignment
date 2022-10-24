@@ -23,8 +23,9 @@ public class EventController {
     @GetMapping(value = "/")
     public String displayResult(Model model) {
         List<Event> events = new ArrayList<>();
-        String searchArea = "下京区";   // 検索したいエリアを代入する
-        events = eventService.selectAll(searchArea);
+        // String searchArea = "下京区";   // 検索したいエリアを代入する
+        // events = eventService.selectEvent(searchArea);   // 検索表示
+        events = eventService.selectAll(); // 全件表示
         model.addAttribute("events", events);
         return "index"; 
     }
