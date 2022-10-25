@@ -1,5 +1,6 @@
 package com.it_seisan.try_event.tryeve;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,14 +13,17 @@ import com.it_seisan.try_event.tryeve.service.EventService;
 /* 
     定期実行を行うクラス
  */
+import com.it_seisan.try_event.tryeve.service.ScrapingService;
 @Component
 public class PeriodicExecution {
 
     @Autowired
     EventService eventService;
+    @Autowired
+    ScrapingService scrapingService;
 
     @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
-    public void output1() {
+    public void output1() throws IOException {
         List<Event> events = new ArrayList<>(); // リスト型のオブジェクトを用意
 
         // サンプルデータ
@@ -28,6 +32,7 @@ public class PeriodicExecution {
         events.add(new Event("長岡京市", "ガラシャ祭り", "11月13日"));
         events.add(new Event("京都市北区", "とれたて朝市", "毎週土曜日6：00～"));
 
+        scrapingService.ScrapingTarget();
 
         eventService.deleteData();  // 登録されているイベントデータを削除する
         eventService.save(events);  // 取得したデータをMySQLに保存する
