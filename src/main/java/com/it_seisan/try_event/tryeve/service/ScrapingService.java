@@ -36,6 +36,7 @@ public class ScrapingService {
 
         for (Element course : event) {
 
+<<<<<<< HEAD
             area = course.getElementsByClass("place").text();
             name = course.getElementsByClass("title").text();
             date = course.getElementsByClass("date nowrap").text();
@@ -44,6 +45,29 @@ public class ScrapingService {
             
         }
         return events;
+=======
+            collabo.add(titleList.get(a) +"　開催期間："+ dateList.get(a));
+            a++;
+        }
+        System.out.println(areaConversion("御香宮"));
+    }
+
+    public String areaConversion(String place) throws IOException {
+
+        // google検索で場所を検索して住所を返す
+        String area;
+        Document document = Jsoup.connect("https://www.google.com/search?q=" + place + "%20住所").get();
+        String eventAddress = document.getElementsByClass("sXLaOe").text();
+        String[] addressSplits = eventAddress.split("\s|(?<=府)|(?<=市)|(?<=区)");
+
+        if(addressSplits[2].equals("京都市")) {
+            area = addressSplits[2] + addressSplits[3];
+        }else{
+            area = addressSplits[2];
+        }
+
+        return area;
+>>>>>>> fba79b2c72a7aa650b93c74743b14c249a638b6c
     }
 
 }
