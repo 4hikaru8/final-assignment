@@ -3,6 +3,7 @@ package com.it_seisan.try_event.tryeve.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -23,14 +24,15 @@ public class ScrapingService {
         // // 検索する種類のワードを配列として用意
         // String wordEvent[] = {"まつり", "祭", "イベント", "朝市"};
 
-        Document document = Jsoup.connect("https://kyoto-design.jp/event").get();
-        Elements event = document.getElementsByClass("wrap clearfix");
+
+        // KYOTOdesignサイトからのスクレイピング
+        Document Kyotoevent = Jsoup.connect("https://kyoto-design.jp/event").get();
+        Elements event = Kyotoevent.getElementsByClass("wrap clearfix");
        
         List<Event> events = new ArrayList<Event>();
         String area;
         String name;
         String date;
-
 
 
 
@@ -43,7 +45,54 @@ public class ScrapingService {
             events.add(new Event(area,name,date));
             
         }
+
+        // おすすめ京都体験オスキョー（朝市のサイト）からのスクレイピング
+        Document document = Jsoup.connect("http://taiken.onozomi.com/marche_list/").get();
+        Elements allSc = document.getElementsContainingOwnText("【場所】");
+        Elements asaichAllTitle = document.getElementsByClass("entry-stitle");
+        
+        String asaichContain = allSc.text();
+
+        List<String> ptag = new ArrayList<String>(Arrays.asList(asaichContain.split("【",0)));
+
+        // 中身初期化
+        area = null;
+        name = null;
+        date = null;
+
+        List<String> asaichTitleList = new ArrayList<String>();
+        List<String> asaichDateList = new ArrayList<String>();
+        List<String> asaichAreaList = new ArrayList<String>();
+
+         // 朝市のタイトルをタイトルリストに入れる
+        for (Element asaichtitle : asaichAllTitle){
+           
+            asaichTitleList.add(asaichtitle.text());            
+        }
+
+        // 朝市の情報をそれぞれのリストに入れる 
+        for(int i = 0; i < ptag.size(); i++){
+            if(ptag.get(i).startsWith("場所")){
+                asaichAreaList.add(ptag.get(i));
+            }else 
+            if(ptag.get(i).startsWith("日程")){
+                asaichDateList.add(ptag.get(i));
+            }
+
+        }
+
+        // リストに格納した情報をeventsに入れる
+        for(int i = 0; i < asaichDateList.size();i++){
+            area = asaichAreaList.get(i);
+            name = asaichTitleList.get(i);
+            date = asaichDateList.get(i);
+
+            events.add(new Event(area, name, date));
+        }
+
         return events;
+
+
     }
 
 }
