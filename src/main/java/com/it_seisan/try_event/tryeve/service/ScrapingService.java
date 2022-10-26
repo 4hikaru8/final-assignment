@@ -10,10 +10,12 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
+import com.it_seisan.try_event.tryeve.entity.Event;
+
 @Service
 public class ScrapingService {
 
-    public void ScrapingTarget() throws IOException {
+    public List<Event> ScrapingTarget() throws IOException {
         
         // // 検索する場所のワードを配列として用意
         // String wordArea[] = {"京都市左京区", "京都市右京区", "京都市上京区", "京都市中京区", "京都市下京区", "京都市南区",
@@ -24,20 +26,24 @@ public class ScrapingService {
         Document document = Jsoup.connect("https://kyoto-design.jp/event").get();
         Elements event = document.getElementsByClass("wrap clearfix");
        
-        List<String> titleList = new ArrayList<String>();
-        List<String> dateList = new ArrayList<String>();
-        List<String> collabo = new ArrayList<String>();
-        int a = 0;
+        List<Event> events = new ArrayList<Event>();
+        String area;
+        String name;
+        String date;
+
+
 
 
         for (Element course : event) {
-            titleList.add(course.getElementsByClass("title").text());
-            dateList.add(course.getElementsByClass("date nowrap").text());
 
-            collabo.add(titleList.get(a) +"　開催期間："+ dateList.get(a));
-            System.out.println((titleList.get(a)));
-            a++;
+            area = course.getElementsByClass("place").text();
+            name = course.getElementsByClass("title").text();
+            date = course.getElementsByClass("date nowrap").text();
+
+            events.add(new Event(area,name,date));
+            
         }
-
+        return events;
     }
+
 }

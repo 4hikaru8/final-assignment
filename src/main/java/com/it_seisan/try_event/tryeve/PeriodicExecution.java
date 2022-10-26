@@ -24,15 +24,9 @@ public class PeriodicExecution {
 
     @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
     public void output1() throws IOException {
-        List<Event> events = new ArrayList<>(); // リスト型のオブジェクトを用意
+        List<Event> events = scrapingService.ScrapingTarget();
+        // リスト型のオブジェクトを用意
 
-        // サンプルデータ
-        events.add(new Event("城陽市", "五里五里まつり", "6月12日"));
-        events.add(new Event("京都市下京区", "下賀茂まつり", "12月11日"));
-        events.add(new Event("長岡京市", "ガラシャ祭り", "11月13日"));
-        events.add(new Event("京都市北区", "とれたて朝市", "毎週土曜日6：00～"));
-
-        scrapingService.ScrapingTarget();
 
         eventService.deleteData();  // 登録されているイベントデータを削除する
         eventService.save(events);  // 取得したデータをMySQLに保存する
