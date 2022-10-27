@@ -25,9 +25,14 @@ public class EventController {
     public String displayResult(@RequestParam("selectedArea") String resSelect, Model model) {
         
         List<Event> events = new ArrayList<>();
-        String searchArea = resSelect;   // 検索したいエリアを代入する
-        events = eventService.selectEvent(searchArea);   // 検索表示
-        // events = eventService.selectAll(); // 全件表示
+        if(resSelect.equals("selectAll")) {
+
+            events = eventService.selectAll(); // 全件表示
+        } else {
+
+            String searchArea = resSelect;   // 検索したいエリアを代入する
+            events = eventService.selectEvent(searchArea);   // 検索表示
+        }
         model.addAttribute("events", events);
         return "index"; 
     }

@@ -18,12 +18,6 @@ public class ScrapingService {
 
     public List<Event> ScrapingTarget() throws IOException {
         
-        // // 検索する場所のワードを配列として用意
-        // String wordArea[] = {"京都市左京区", "京都市右京区", "京都市上京区", "京都市中京区", "京都市下京区", "京都市南区",
-        //                         "京都市伏見区", "京都市西京区", "京都市東山区", "京都市山科区", "京都市南区", "宇治市", "長岡京市", "八幡市"};
-        // // 検索する種類のワードを配列として用意
-        // String wordEvent[] = {"まつり", "祭", "イベント", "朝市"};
-
 
         // KYOTOdesignサイトからのスクレイピング
         Document Kyotoevent = Jsoup.connect("https://kyoto-design.jp/event").get();
@@ -39,6 +33,7 @@ public class ScrapingService {
         for (Element course : event) {
 
             area = course.getElementsByClass("place").text();
+            area = area.replace("＠", "");
             name = course.getElementsByClass("title").text();
             date = course.getElementsByClass("date nowrap").text();
 
@@ -84,8 +79,12 @@ public class ScrapingService {
         // リストに格納した情報をeventsに入れる
         for(int i = 0; i < asaichDateList.size();i++){
             area = asaichAreaList.get(i);
+            area = area.replace("】", ":");
+
             name = asaichTitleList.get(i);
+            name = name.replace("】", ":");
             date = asaichDateList.get(i);
+            date = date.replace("】", ":");
 
             events.add(new Event(area, name, date));
         }
